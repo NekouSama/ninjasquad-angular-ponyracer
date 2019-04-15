@@ -9,7 +9,7 @@ export class RaceService {
 
   constructor() { }
 
-  list(): Observable<any[]> {
+  list(): Observable<Array<any>> {
     return of([
       {name: 'Lyon'},
       {name: 'Los Angeles'},
@@ -17,6 +17,6 @@ export class RaceService {
       {name: 'Tokyo'},
       {name: 'Casablanca'}
     ])
-    .pipe(delay(2500))
+    .pipe(delay(500));
   }
 }
