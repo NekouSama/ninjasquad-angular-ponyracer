@@ -1,11 +1,8 @@
 import { PonyModel } from './pony.model';
 
-export class RaceModel {
-
-    constructor(
-        public name: string,
-        public ponies: PonyModel,
-        public id: number,
-        public startInstant: string
-        ) { }
+export interface RaceModel {
+  id: number;
+  name: string;
+  ponies: Array<PonyModel>;
+  startInstant: string;
 }
