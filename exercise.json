@@ -1,1 +1,1 @@
-{"pack":"36","id":18,"title":"HTTP with authentication","specs":[{"name":"src/app/jwt-interceptor.service.spec.ts","hash":"d78837cef989a18110b8c989e6cc21ce2f75d859"},{"name":"src/app/user.service.spec.ts","hash":"310d686a10ef365b7a6eba90965bada4b3540d21"}]}
+{"pack":"36","id":20,"title":"Cancel a bet","specs":[{"name":"src/app/bet/bet.component.spec.ts","hash":"5474b93fdc78e113a8a8ee768e670c06d1eb3245"},{"name":"src/app/race.service.spec.ts","hash":"b409f214b36605f637b86346a4d5dd33103ce3dd"}]}

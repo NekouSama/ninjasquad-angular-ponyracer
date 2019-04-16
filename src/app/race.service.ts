@@ -14,4 +14,17 @@ export class RaceService {
   list() {
     return this.http.get<Array<RaceModel>>(`${environment.baseUrl}/api/races?status=PENDING`);
   }
+
+  bet(raceId: number, ponyId: number) {
+    const body = { ponyId };
+    return this.http.post(`${environment.baseUrl}/api/races/${raceId}/bets`, body);
+  }
+
+  get(id: number) {
+    return this.http.get(`${environment.baseUrl}/api/races/${id}`);
+  }
+
+  cancelBet(raceId: number) {
+    return this.http.delete(`${environment.baseUrl}/api/races/${raceId}/bets`);
+  }
 }
