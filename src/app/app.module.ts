@@ -12,9 +12,10 @@ import { FromNowPipe } from './from-now.pipe';
 import { ROUTES } from './app.routes';
 import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { RaceService } from './race.service';
 import { UserService } from './user.service';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -25,13 +26,15 @@ import { UserService } from './user.service';
     PonyComponent,
     FromNowPipe,
     HomeComponent,
-    RegisterComponent
+    RegisterComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     RouterModule.forRoot(ROUTES),
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [
     RaceService,

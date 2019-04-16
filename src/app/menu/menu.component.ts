@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { UserModel } from '../models/user.model';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'pr-menu',
@@ -8,10 +10,12 @@ import { Component, OnInit } from '@angular/core';
 export class MenuComponent implements OnInit {
 
   navbarCollapsed = true;
+  user: UserModel;
 
-  constructor() { }
+  constructor(private userService: UserService) { }
 
   ngOnInit() {
+    //this.user = this.userService.userEvents
   }
 
   toggleNavbar() {
