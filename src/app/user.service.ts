@@ -55,4 +55,8 @@ export class UserService {
     return this.wsService.connect<UserModel>(`/player/${userId}`);
   }
 
+  isLoggedIn() {
+    return window.localStorage.getItem('rememberMe') ? true : false;
+  }
+
 }
