@@ -10,7 +10,7 @@ import { PonyModel } from '../models/pony.model';
 export class PonyComponent implements OnInit {
 
   @Input() ponyModel: PonyModel;
-  @Input() isRunning: boolean; 
+  @Input() isRunning: boolean;
   @Input() isBoosted?: boolean;
   @Output() readonly ponyClicked = new EventEmitter<PonyModel>();
 

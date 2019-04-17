@@ -52,7 +52,7 @@ export class LiveComponent implements OnInit, OnDestroy {
         this.betWon = this.winners.some(array => array.id === this.raceModel.betPonyId);
       }
     );
-    
+
     this.clickSubject.pipe(
       groupBy(pony => pony.id, pony => pony.id),
       mergeMap(obs => obs.pipe(bufferToggle(obs, val => interval(1000)))),
