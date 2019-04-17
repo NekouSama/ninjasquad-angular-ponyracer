@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, takeWhile } from 'rxjs/operators';
 
 import { environment } from '../environments/environment';
 import { RaceModel, LiveRaceModel } from './models/race.model';
@@ -35,6 +35,7 @@ export class RaceService {
 
   live(raceId: number): Observable<Array<PonyWithPositionModel>> {
     return this.wsService.connect<LiveRaceModel>(`/race/${raceId}`).pipe(
+      takeWhile(val => val.status !== 'FINISHED'),
       map(liveRace => liveRace.ponies)
     );
   }
