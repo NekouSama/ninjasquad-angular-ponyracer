@@ -19,6 +19,8 @@ import { LoginComponent } from './login/login.component';
 import { JwtInterceptorService } from './jwt-interceptor.service';
 import { BetComponent } from './bet/bet.component';
 import { LiveComponent } from './live/live.component';
+import { PendingRacesComponent } from './races/pending-races/pending-races.component';
+import { FinishedRacesComponent } from './races/finished-races/finished-races.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,9 @@ import { LiveComponent } from './live/live.component';
     RegisterComponent,
     LoginComponent,
     BetComponent,
-    LiveComponent
+    LiveComponent,
+    PendingRacesComponent,
+    FinishedRacesComponent
   ],
   imports: [
     BrowserModule,

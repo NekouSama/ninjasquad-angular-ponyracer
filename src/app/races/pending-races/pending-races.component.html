@@ -1,0 +1,14 @@
+<div>
+  <h2>{{ raceModel?.name }}</h2>
+  <div class="alert alert-danger" *ngIf="error">A problem occurred during the live.</div>
+  <div id="live-race" [ngSwitch]="raceModel?.status">
+    <div>
+      <div>The race will start {{ raceModel.startInstant | fromNow }}</div>
+      <div class="row">
+        <div *ngFor="let pony of raceModel.ponies" class="col-sm-2" [class.selected]="pony.id === raceModel.betPonyId">
+          <pr-pony [ponyModel]="pony"></pr-pony>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

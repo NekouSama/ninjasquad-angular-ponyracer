@@ -1,0 +1,19 @@
+<div>
+  <h2>{{ raceModel?.name }}</h2>
+  <div class="alert alert-danger" *ngIf="error">A problem occurred during the live.</div>
+  <div id="live-race" [ngSwitch]="raceModel?.status">
+    <div>
+      <div *ngIf="!winners.length; else displayWinners">The race is over.</div>
+      <ng-template #displayWinners>
+        <div class="alert alert-success" *ngIf="betWon">You won your bet!</div>
+        <div class="alert alert-warning" *ngIf="raceModel.betPonyId && !betWon">You lost your bet.</div>
+        <div>Most Valuable Ponies</div>
+        <div class="row">
+          <div *ngFor="let winner of winners" class="col-12 col-md-2" [class.selected]="winner.id === raceModel.betPonyId">
+            <pr-pony [ponyModel]="winner"></pr-pony>
+          </div>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</div>
