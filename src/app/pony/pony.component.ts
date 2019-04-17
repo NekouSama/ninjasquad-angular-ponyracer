@@ -1,4 +1,5 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+
 import { PonyModel } from '../models/pony.model';
 
 @Component({
@@ -10,22 +11,15 @@ export class PonyComponent implements OnInit {
 
   @Input() ponyModel: PonyModel;
   @Input() isRunning: boolean;
-  @Output() readonly ponyClicked: EventEmitter<any> = new EventEmitter<PonyModel>();
+  @Output() readonly ponyClicked = new EventEmitter<PonyModel>();
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {
   }
 
-  getPonyImageUrl(): string {
-    const color = this.ponyModel.color.toLowerCase();
-    const prefix = 'assets/images/pony-'; 
-    const postfix = '.gif';   
-    if (this.isRunning) {
-      return prefix + color + '-running' + postfix;
-    } else {
-      return prefix + color + postfix;
-    }    
+  getPonyImageUrl() {
+    return `assets/images/pony-${this.ponyModel.color.toLowerCase()}${ this.isRunning ? '-running' : ''}.gif`;
   }
 
   clicked() {
