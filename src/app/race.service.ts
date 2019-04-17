@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, interval } from 'rxjs';
-import { map, take } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { environment } from '../environments/environment';
 import { RaceModel, LiveRaceModel } from './models/race.model';
-import { PonyWithPositionModel } from './models/pony.model';
 import { WsService } from './ws.service';
+import { PonyWithPositionModel } from './models/pony.model';
 
 @Injectable({
   providedIn: 'root'
@@ -33,45 +33,10 @@ export class RaceService {
     return this.http.delete<void>(`${environment.baseUrl}/api/races/${raceId}/bets`);
   }
 
-  live(raceId: number): Observable<any> {
-    return this.wsService.connect(`/race/${raceId}`).pipe(
-      map((position): LiveRaceModel => {
-        return position.ponies;
-      })
+  live(raceId: number): Observable<Array<PonyWithPositionModel>> {
+    return this.wsService.connect<LiveRaceModel>(`/race/${raceId}`).pipe(
+      map(liveRace => liveRace.ponies)
     );
-/*
-    return interval(1000).pipe(
-      take(101),
-      map(position => {
-        return [{
-          id: 1,
-          name: 'Superb Runner',
-          color: 'BLUE',
-          position
-        }, {
-          id: 2,
-          name: 'Awesome Fridge',
-          color: 'GREEN',
-          position
-        }, {
-          id: 3,
-          name: 'Great Bottle',
-          color: 'ORANGE',
-          position
-        }, {
-          id: 4,
-          name: 'Little Flower',
-          color: 'YELLOW',
-          position
-        }, {
-          id: 5,
-          name: 'Nice Rock',
-          color: 'PURPLE',
-          position
-        }];
-      })
-    );
-*/
   }
 
 }

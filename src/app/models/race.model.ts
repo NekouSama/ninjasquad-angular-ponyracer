@@ -9,5 +9,5 @@ export interface RaceModel {
 }
 
 export interface LiveRaceModel {
-  ponies: PonyWithPositionModel;
+  ponies: Array<PonyWithPositionModel>;
 }
