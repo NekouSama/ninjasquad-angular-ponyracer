@@ -4,15 +4,17 @@ import { Observable, interval } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 
 import { environment } from '../environments/environment';
-import { RaceModel } from './models/race.model';
+import { RaceModel, LiveRaceModel } from './models/race.model';
 import { PonyWithPositionModel } from './models/pony.model';
+import { WsService } from './ws.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RaceService {
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient,
+              private wsService: WsService) {}
 
   list(): Observable<Array<RaceModel>> {
     const params = { status: 'PENDING' };
@@ -31,8 +33,14 @@ export class RaceService {
     return this.http.delete<void>(`${environment.baseUrl}/api/races/${raceId}/bets`);
   }
 
-  live(raceId: number): Observable<Array<PonyWithPositionModel>> {
-    return interval(35).pipe(
+  live(raceId: number): Observable<any> {
+    return this.wsService.connect(`/race/${raceId}`).pipe(
+      map((position): LiveRaceModel => {
+        return position.ponies;
+      })
+    );
+/*
+    return interval(1000).pipe(
       take(101),
       map(position => {
         return [{
@@ -63,6 +71,7 @@ export class RaceService {
         }];
       })
     );
+*/
   }
 
 }
