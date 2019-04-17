@@ -40,4 +40,8 @@ export class RaceService {
     );
   }
 
+  boost(raceId: number, ponyId: number) {
+    return this.http.post(`${environment.baseUrl}/api/races/${raceId}/boosts`, { ponyId });
+  }
+
 }
