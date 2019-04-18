@@ -56,12 +56,11 @@ export class UserService {
     return this.wsService.connect<UserModel>(`/player/${userId}`);
   }
 
-  isLoggedIn() {
-    return window.localStorage.getItem('rememberMe') ? true : false;
+  isLoggedIn(): boolean {
+    return !!window.localStorage.getItem('rememberMe');
   }
 
   getMoneyHistory(): Observable<Array<MoneyHistoryModel>> {
     return this.http.get<Array<MoneyHistoryModel>>(`${environment.baseUrl}/api/money/history`);
   }
-
 }

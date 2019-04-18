@@ -7,7 +7,6 @@ import { USERS_ROUTES } from './users.routes';
 import { LoginComponent } from '../login/login.component';
 import { RegisterComponent } from '../register/register.component';
 import { SharedModule } from '../shared/shared.module';
-import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 import { MoneyHistoryComponent } from './money-history/money-history.component';
 
 @NgModule({
@@ -16,8 +15,7 @@ import { MoneyHistoryComponent } from './money-history/money-history.component';
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forChild(USERS_ROUTES),
-    SharedModule,
-    NgbAlertModule
+    SharedModule
   ],
   declarations: [
     RegisterComponent,

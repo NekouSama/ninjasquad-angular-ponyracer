@@ -1,5 +1,5 @@
-import { Component, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
-import { UserService } from 'src/app/user.service';
+import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
+import { UserService } from '../../user.service';
 import { Chart } from 'chart.js';
 
 @Component({

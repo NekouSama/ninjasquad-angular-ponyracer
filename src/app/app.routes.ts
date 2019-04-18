@@ -7,8 +7,8 @@ export const ROUTES: Routes = [
   { path: '', component: HomeComponent },
   {
     path: 'races',
-    canActivate: [LoggedInGuard],
-    loadChildren: './races/races.module#RacesModule'
+    loadChildren: './races/races.module#RacesModule',
+    canActivate: [LoggedInGuard]
   },
   {
     path: 'users',

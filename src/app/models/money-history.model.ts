@@ -1,4 +1,4 @@
 export interface MoneyHistoryModel {
-    instant: string;
-    money: number;
+  instant: string;
+  money: number;
 }

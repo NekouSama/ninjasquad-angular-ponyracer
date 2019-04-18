@@ -2,11 +2,11 @@ import { PonyModel, PonyWithPositionModel } from './pony.model';
 
 export interface RaceModel {
   id: number;
+  betPonyId?: number;
   name: string;
   ponies: Array<PonyModel>;
   startInstant: string;
-  betPonyId?: number;
-  status?: string;
+  status?: 'PENDING' | 'RUNNING' | 'FINISHED';
 }
 
 export interface LiveRaceModel {
