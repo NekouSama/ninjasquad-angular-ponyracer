@@ -2,6 +2,7 @@ import { async, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ActivatedRoute } from '@angular/router';
 import { By } from '@angular/platform-browser';
+import { NgbAlert, NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 import { of, throwError } from 'rxjs';
 import * as moment from 'moment';
 
@@ -18,7 +19,7 @@ describe('BetComponent', () => {
   const fakeActivatedRoute = { snapshot: { data: { race } } };
 
   beforeEach(() => TestBed.configureTestingModule({
-    imports: [RacesModule, RouterTestingModule],
+    imports: [RacesModule, RouterTestingModule, NgbAlertModule],
     providers: [
       { provide: RaceService, useValue: fakeRaceService },
       { provide: ActivatedRoute, useValue: fakeActivatedRoute }
@@ -149,9 +150,16 @@ describe('BetComponent', () => {
 
     fixture.detectChanges();
 
-    const element = fixture.nativeElement;
-    const message = element.querySelector('.alert.alert-danger');
-    expect(message.textContent).toContain('The race is already started or finished');
+    const debugElement = fixture.debugElement;
+    const message = debugElement.query(By.directive(NgbAlert));
+    expect(message).withContext('You should have an NgbAlert if the bet failed').not.toBeNull();
+    expect(message.nativeElement.textContent).toContain('The race is already started or finished');
+    expect(message.componentInstance.type).withContext('The alert should be a danger one').toBe('danger');
+
+    // close the alert
+    message.componentInstance.closeHandler();
+    fixture.detectChanges();
+    expect(debugElement.query(By.directive(NgbAlert))).withContext('The NgbAlert should be closable').toBeNull();
   });
 
   it('should cancel a bet', () => {

@@ -2,6 +2,7 @@ import { async, discardPeriodicTasks, fakeAsync, TestBed, tick } from '@angular/
 import { RouterTestingModule } from '@angular/router/testing';
 import { ActivatedRoute } from '@angular/router';
 import { By } from '@angular/platform-browser';
+import { NgbAlert, NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 import { Subject, of, EMPTY } from 'rxjs';
 
 import { RacesModule } from '../races/races.module';
@@ -16,7 +17,7 @@ describe('LiveComponent', () => {
   const fakeRaceService = jasmine.createSpyObj('RaceService', ['live', 'boost']);
 
   beforeEach(() => TestBed.configureTestingModule({
-    imports: [RacesModule, RouterTestingModule],
+    imports: [RacesModule, RouterTestingModule, NgbAlertModule],
     providers: [
       { provide: RaceService, useValue: fakeRaceService }
     ]
@@ -333,12 +334,18 @@ describe('LiveComponent', () => {
     const sunnySunday = ponyComponents[0];
     expect(sunnySunday.componentInstance.isRunning).withContext('The ponies should be not running').toBeFalsy();
 
-    expect(element.textContent).toContain('You won your bet!');
+    const success = fixture.debugElement.query(By.directive(NgbAlert));
+    expect(success).withContext('You should have a success NgbAlert to display the bet won').not.toBeNull();
+    expect(success.nativeElement.textContent).toContain('You won your bet!');
+    expect(success.componentInstance.type).withContext('The alert should be a success one').toBe('success');
 
     // lost the bet...
     fixture.componentInstance.betWon = false;
     fixture.detectChanges();
-    expect(element.textContent).toContain('You lost your bet.');
+    const betFailed = fixture.debugElement.query(By.directive(NgbAlert));
+    expect(betFailed).withContext('You should have a warning NgbAlert to display the bet failed').not.toBeNull();
+    expect(betFailed.nativeElement.textContent).toContain('You lost your bet.');
+    expect(betFailed.componentInstance.type).withContext('The alert should be a warning one').toBe('warning');
 
     // no winners (race was already over)
     fixture.componentInstance.winners = [];
@@ -348,8 +355,15 @@ describe('LiveComponent', () => {
     // an error occurred
     fixture.componentInstance.error = true;
     fixture.detectChanges();
-    const alert = element.querySelector('div.alert.alert-danger');
-    expect(alert.textContent).toContain('A problem occurred during the live.');
+    const alert = debugElement.query(By.directive(NgbAlert));
+    expect(alert).withContext('You should have an NgbAlert to display the error').not.toBeNull();
+    expect(alert.nativeElement.textContent).toContain('A problem occurred during the live.');
+    expect(alert.componentInstance.type).withContext('The alert should be a danger one').toBe('danger');
+
+    // close the alert
+    alert.componentInstance.closeHandler();
+    fixture.detectChanges();
+    expect(debugElement.query(By.directive(NgbAlert))).withContext('The NgbAlert should not be closable').not.toBeNull();
   });
 
   it('should listen to click events on ponies in the template', () => {

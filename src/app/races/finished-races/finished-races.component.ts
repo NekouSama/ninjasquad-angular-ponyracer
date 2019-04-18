@@ -9,6 +9,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class FinishedRacesComponent {
 
+  page = 1;
   races: Array<RaceModel>;
 
   constructor(route: ActivatedRoute) {

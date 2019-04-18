@@ -1,30 +1,37 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RacesComponent } from './races.component';
-import { RaceComponent } from '../race/race.component';
-import { PendingRacesComponent } from './pending-races/pending-races.component';
+
 import { FinishedRacesComponent } from './finished-races/finished-races.component';
-import { PonyComponent } from '../pony/pony.component';
-import { BetComponent } from '../bet/bet.component';
+import { PendingRacesComponent } from './pending-races/pending-races.component';
 import { LiveComponent } from '../live/live.component';
+import { BetComponent } from '../bet/bet.component';
 import { FromNowPipe } from '../from-now.pipe';
-import { RACES_ROUTES } from './races.routes';
+import { PonyComponent } from '../pony/pony.component';
+import { RaceComponent } from '../race/race.component';
+import { RacesComponent } from './races.component';
 import { RouterModule } from '@angular/router';
+import { RACES_ROUTES } from './races.routes';
+import { SharedModule } from '../shared/shared.module';
+import { NgbAlertModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
+  imports: [
+    CommonModule,
+    RouterModule.forChild(RACES_ROUTES),
+    SharedModule,
+    NgbAlertModule,
+    NgbPaginationModule
+  ],
   declarations: [
     RacesComponent,
     RaceComponent,
-    PendingRacesComponent,
-    FinishedRacesComponent,
     PonyComponent,
+    FromNowPipe,
     BetComponent,
     LiveComponent,
-    FromNowPipe
-  ],
-  imports: [
-    CommonModule,
-    RouterModule.forChild(RACES_ROUTES)
+    PendingRacesComponent,
+    FinishedRacesComponent
   ]
 })
-export class RacesModule { }
+export class RacesModule {
+}
