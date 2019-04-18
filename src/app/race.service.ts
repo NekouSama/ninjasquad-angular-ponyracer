@@ -4,8 +4,8 @@ import { Observable } from 'rxjs';
 import { map, takeWhile } from 'rxjs/operators';
 
 import { environment } from '../environments/environment';
-import { RaceModel, LiveRaceModel } from './models/race.model';
 import { WsService } from './ws.service';
+import { RaceModel, LiveRaceModel } from './models/race.model';
 import { PonyWithPositionModel } from './models/pony.model';
 
 @Injectable({
@@ -13,11 +13,10 @@ import { PonyWithPositionModel } from './models/pony.model';
 })
 export class RaceService {
 
-  constructor(private http: HttpClient,
-              private wsService: WsService) {}
+  constructor(private http: HttpClient, private wsService: WsService) {}
 
   list(status: string): Observable<Array<RaceModel>> {
-    const params = { status: status };
+    const params = { status };
     return this.http.get<Array<RaceModel>>(`${environment.baseUrl}/api/races`, { params });
   }
 
@@ -35,7 +34,7 @@ export class RaceService {
 
   live(raceId: number): Observable<Array<PonyWithPositionModel>> {
     return this.wsService.connect<LiveRaceModel>(`/race/${raceId}`).pipe(
-      takeWhile(val => val.status !== 'FINISHED'),
+      takeWhile(liveRace => liveRace.status !== 'FINISHED'),
       map(liveRace => liveRace.ponies)
     );
   }

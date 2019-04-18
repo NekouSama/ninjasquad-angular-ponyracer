@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { RaceModel } from 'src/app/models/race.model';
-import { RaceService } from 'src/app/race.service';
+import { ActivatedRoute } from '@angular/router';
+import { RaceModel } from '../../models/race.model';
 
 @Component({
   selector: 'pr-pending-races',
@@ -8,14 +8,12 @@ import { RaceService } from 'src/app/race.service';
   styleUrls: ['./pending-races.component.css']
 })
 export class PendingRacesComponent implements OnInit {
+  races: Array<RaceModel>;
 
-  races: Array<RaceModel> = [];
-
-  constructor(private raceService: RaceService) { }
+  constructor(private route: ActivatedRoute) {
+  }
 
   ngOnInit() {
-    this.raceService.list('PENDING').subscribe(
-      (response: Array<RaceModel>) => this.races = response
-    );
+    this.races = this.route.snapshot.data.races;
   }
 }
