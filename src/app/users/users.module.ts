@@ -8,6 +8,7 @@ import { LoginComponent } from '../login/login.component';
 import { RegisterComponent } from '../register/register.component';
 import { SharedModule } from '../shared/shared.module';
 import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
+import { MoneyHistoryComponent } from './money-history/money-history.component';
 
 @NgModule({
   imports: [
@@ -20,7 +21,8 @@ import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
   ],
   declarations: [
     RegisterComponent,
-    LoginComponent
+    LoginComponent,
+    MoneyHistoryComponent
   ]
 })
 export class UsersModule {
