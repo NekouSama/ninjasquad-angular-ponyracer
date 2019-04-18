@@ -4,8 +4,8 @@
 
 <div class="text-center">
   <ng-container *ngIf="!user; else elseTemplate">
-    <a class="btn btn-primary" routerLink="/login">Login</a>&nbsp;
-    <a class="btn btn-primary" routerLink="/register">Register</a>
+    <a class="btn btn-primary" routerLink="/users/login">Login</a>&nbsp;
+    <a class="btn btn-primary" routerLink="/users/register">Register</a>
   </ng-container>
   <ng-template #elseTemplate>
     <a class="btn btn-primary" routerLink="/races">Races</a>
